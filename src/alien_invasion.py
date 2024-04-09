@@ -1,6 +1,8 @@
 import pygame
+
 from settings import Settings
 from alien import Alien
+from ship import Ship
 
 from random import randint
 
@@ -17,6 +19,8 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
+
+        self.ship = Ship(self)
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
@@ -48,6 +52,7 @@ class AlienInvasion:
 
     def _update_screen(self):
         self.screen.fill(self.settings.bg_color)
+        self.ship.blit()
         self.aliens.draw(self.screen)
 
         pygame.display.flip()
@@ -73,6 +78,7 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game."""
         while True:
+            self.ship.update()
             self._update_aliens()
             self._update_screen()
             self.clock.tick(60)
