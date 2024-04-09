@@ -16,3 +16,6 @@ class Settings:
         self.fleet_drop_speed = 10
         # fleet_direction: 1 -> right, -1 -> left
         self.fleet_direction = 1
+
+        # Ship settings.
+        self.ship_speed = 1.5
