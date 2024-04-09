@@ -1,5 +1,3 @@
-import sys
-
 import pygame
 from settings import Settings
 from alien import Alien
@@ -64,7 +62,6 @@ class AlienInvasion:
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
-
 
     def _check_fleet_edges(self):
         """Function to check if any aliens have reached the edges"""
