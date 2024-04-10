@@ -6,6 +6,7 @@ import pygame
 
 from alien import Alien
 from bullet import Bullet
+from button import Button
 from settings import Settings
 from game_stats import GameStats
 from ship import Ship
@@ -34,7 +35,9 @@ class AlienInvasion:
         self._create_fleet()
 
         # Start Alien Invasion in an active state.
-        self.game_active = True
+        self.game_active = False
+
+        self.play_button = Button(self, "Play")
 
     def _create_alien(self, position_x, position_y):
         """Create an alien group and add it to the row"""
@@ -69,10 +72,22 @@ class AlienInvasion:
         self.aliens.draw(self.screen)
 
         if not self.game_active:
-            sleep(2)
-            sys.exit()
+            self.play_button.draw_button()
+            pygame.mouse.set_visible(True)
 
         pygame.display.flip()
+
+    def _check_play_button(self, mouse_pos):
+        """Function to check for play button actions"""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.game_active:
+            self.stats.reset_stats()
+            self.game_active = True
+
+            self.bullets.empty()
+            self.aliens.empty()
+
+            pygame.mouse.set_visible(False)
 
     def _update_aliens(self):
         """Function to update the aliens in the fleet"""
@@ -119,6 +134,9 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Respond to key presses."""

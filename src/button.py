@@ -9,8 +9,8 @@ class Button:
 
         # button dim and properties
         self.width, self.height = 200, 50
-        self.button_color = (0, 155, 0)
-        self.text_color = (0, 0, 0)
+        self.button_color = "#44FF00"
+        self.text_color = "#000000"
         self.font = pygame.font.SysFont(None, 50)
 
         # build the button
