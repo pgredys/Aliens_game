@@ -1,6 +1,3 @@
-from settings import Settings
-
-
 class GameStats:
     """Track stats for Aliens Invasion"""
 
