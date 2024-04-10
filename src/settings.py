@@ -25,4 +25,7 @@ class Settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (0, 0, 0)
-        self.bullets_allowed = 10
+        self.bullets_allowed = 3
+
+        # Ships per game
+        self.ships_limit = 3
