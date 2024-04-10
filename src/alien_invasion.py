@@ -125,11 +125,21 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+        self._check_bullet_alien_collisions()
+
     def _fire_bullet(self):
         """Function to fire a bullet"""
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _check_bullet_alien_collisions(self):
+        """Function to check if a bullet collides with the alien"""
+        pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
+        if not self.aliens:
+            self.bullets.empty()
+            self._create_fleet()
 
 
 if __name__ == '__main__':
