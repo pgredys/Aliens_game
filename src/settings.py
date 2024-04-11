@@ -29,3 +29,4 @@ class Settings:
 
         # Ships per game
         self.ships_limit = 3
+        #TODO
