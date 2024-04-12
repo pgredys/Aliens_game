@@ -7,8 +7,8 @@ import pygame
 from alien import Alien
 from bullet import Bullet
 from button import Button
-from settings import Settings
 from game_stats import GameStats
+from settings import Settings
 from ship import Ship
 
 
@@ -80,12 +80,15 @@ class AlienInvasion:
     def _check_play_button(self, mouse_pos):
         """Function to check for play button actions"""
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+
         if button_clicked and not self.game_active:
             self.stats.reset_stats()
             self.game_active = True
 
             self.bullets.empty()
             self.aliens.empty()
+
+            self.settings.initialize_dynamic_settings()
 
             pygame.mouse.set_visible(False)
 
@@ -178,6 +181,8 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+
+            self.settings.increase_speed()
 
     def _ship_hit(self):
         """Function for alien-ship hit"""
