@@ -94,6 +94,7 @@ class AlienInvasion:
             self.aliens.empty()
 
             self.settings.initialize_dynamic_settings()
+            self.stats.level = 1
 
             pygame.mouse.set_visible(False)
 
@@ -191,6 +192,7 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.stats.level += 1
 
             self.settings.increase_speed()
 
