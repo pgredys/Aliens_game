@@ -94,7 +94,7 @@ class AlienInvasion:
             self.aliens.empty()
 
             self.settings.initialize_dynamic_settings()
-            self.stats.level = 1
+            self.stats.level = 0
 
             pygame.mouse.set_visible(False)
 
@@ -187,14 +187,18 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats .score += self.settings.alien_points * len(aliens)
+
             self.sb.prep_score()
+            self.sb.check_high_score()
 
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
-            self.stats.level += 1
-
             self.settings.increase_speed()
+
+            # Increase level
+            self.stats.level += 1
+            self.sb.prep_level()
 
     def _ship_hit(self):
         """Function for alien-ship hit"""
