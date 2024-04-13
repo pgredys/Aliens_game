@@ -1,13 +1,15 @@
 import pygame.font
 
-from settings import Settings
-
 
 class Scoreboard:
     """Class representing a scoreboard"""
 
     def __init__(self, ai_game):
         """Initialise the scoreboard"""
+        self.level_rect = None
+        self.level_image = None
+        self.high_score_rect = None
+        self.high_score_image = None
         self.score_rect = None
         self.store_image = None
         self.screen = ai_game.screen
@@ -69,3 +71,9 @@ class Scoreboard:
         self.level_rect = self.level_image.get_rect()
         self.level_rect.right = self.score_rect.right
         self.level_rect.bottom = self.screen_rect.bottom - 20
+
+    def prep_ship_left(self):
+        pass
+
+    def check_ship_left(self):
+        pass
