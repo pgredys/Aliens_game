@@ -76,6 +76,8 @@ class AlienInvasion:
         self.sb.show_score()
 
         if not self.game_active:
+            if self.stats.score >= self.stats.high_score:
+                self.stats.save_high_score()
             self.play_button.draw_button()
             pygame.mouse.set_visible(True)
 
@@ -141,7 +143,8 @@ class AlienInvasion:
         """Respond to key presses and mouse events."""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                self.stats.save_high_score()
+                if self.stats.score >= self.stats.high_score:
+                    self.stats.save_high_score()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
@@ -158,7 +161,8 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
         elif event.key == pygame.K_q or event.key == pygame.K_ESCAPE:
-            self.stats.save_high_score()
+            if self.stats.score >= self.stats.high_score:
+                self.stats.save_high_score()
             sys.exit()
         elif event.key == pygame.K_SPACE or event.key == pygame.K_UP:
             self._fire_bullet()
