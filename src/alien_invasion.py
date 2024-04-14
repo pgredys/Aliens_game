@@ -7,8 +7,8 @@ import pygame
 from alien import Alien
 from bullet import Bullet
 from button import Button
-from scoreboard import Scoreboard
 from game_stats import GameStats
+from scoreboard import Scoreboard
 from settings import Settings
 from ship import Ship
 
