@@ -25,7 +25,7 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode(
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
-        pygame.display.set_icon(pygame.image.load('../assets/alien.bmp'))
+        pygame.display.set_icon(pygame.image.load('../assets/imgs/icon.bmp'))
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
@@ -186,6 +186,7 @@ class AlienInvasion:
     def _fire_bullet(self):
         """Function to fire a bullet"""
         if len(self.bullets) < self.settings.bullets_allowed:
+            self.ship.make_fire_sound()
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
 
