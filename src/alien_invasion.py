@@ -88,13 +88,16 @@ class AlienInvasion:
         if button_clicked and not self.game_active:
             self.stats.reset_stats()
             self.sb.prep_score()
+
             self.game_active = True
 
             self.bullets.empty()
             self.aliens.empty()
 
             self.settings.initialize_dynamic_settings()
+
             self.stats.level = 0
+            self.sb.prep_ship_left()
 
             pygame.mouse.set_visible(False)
 
@@ -204,6 +207,7 @@ class AlienInvasion:
         """Function for alien-ship hit"""
         if self.stats.ships_left > 1:
             self.stats.ships_left -= 1
+            self.sb.prep_ship_left()
 
             self.bullets.empty()
             self.aliens.empty()
@@ -216,6 +220,8 @@ class AlienInvasion:
 
         else:
             self.game_active = False
+            self.stats.ships_left -= 1
+            self.sb.prep_ship_left()
 
     def _check_aliens_bottom(self):
         """Function to check if aliens have reached the bottom"""

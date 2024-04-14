@@ -1,11 +1,14 @@
 import pygame.font
 
+from live import Live
+
 
 class Scoreboard:
     """Class representing a scoreboard"""
 
     def __init__(self, ai_game):
         """Initialise the scoreboard"""
+        self.lives = None
         self.level_rect = None
         self.level_image = None
         self.high_score_rect = None
@@ -16,6 +19,7 @@ class Scoreboard:
         self.screen_rect = self.screen.get_rect()
         self.settings = ai_game.settings
         self.stats = ai_game.stats
+        self.ai_game = ai_game
 
         # Font settings for information
         self.text_color = "#2b2b2b"
@@ -25,6 +29,7 @@ class Scoreboard:
         self.prep_score()
         self.prep_high_score()
         self.prep_level()
+        self.prep_ship_left()
 
     def prep_score(self):
         """Prepare score for display"""
@@ -44,6 +49,7 @@ class Scoreboard:
         self.screen.blit(self.store_image, self.score_rect)
         self.screen.blit(self.high_score_image, self.high_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.lives.draw(self.screen)
 
     def prep_high_score(self):
         """Prepare high score on the screen"""
@@ -73,7 +79,10 @@ class Scoreboard:
         self.level_rect.bottom = self.screen_rect.bottom - 20
 
     def prep_ship_left(self):
-        pass
-
-    def check_ship_left(self):
-        pass
+        if self.stats.ships_left >= 0:
+            self.lives = pygame.sprite.Group()
+            for lives in range(self.stats.ships_left):
+                live = Live(self.ai_game)
+                live.rect.x = 10 + lives * live.rect.width
+                live.rect.y = 10
+                self.lives.add(live)
