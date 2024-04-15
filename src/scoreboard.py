@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pygame.font
 
 from live import Live
@@ -22,8 +24,8 @@ class Scoreboard:
         self.ai_game = ai_game
 
         # Font settings for information
-        self.text_color = "#2b2b2b"
-        self.font = pygame.font.SysFont(None, 48)
+        self.text_color = "#000000"
+        self.font = pygame.font.Font(Path('../assets/fonts/CascadiaCode.ttf'), 36)
 
         # prepare initial score
         self.prep_score()
