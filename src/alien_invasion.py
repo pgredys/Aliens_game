@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from random import randint
 from time import sleep
 
@@ -26,6 +27,10 @@ class AlienInvasion:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
         pygame.display.set_icon(pygame.image.load('../assets/imgs/icon.bmp'))
+
+        pygame.mixer.init()
+        pygame.mixer.music.load(Path('../assets/audio/music.wav'))
+        pygame.mixer.music.play(-1)
 
         self.stats = GameStats(self)
         self.sb = Scoreboard(self)
@@ -77,6 +82,7 @@ class AlienInvasion:
         self.sb.show_score()
 
         if not self.game_active:
+            pygame.mixer.music.stop()
             if self.stats.score >= self.stats.high_score:
                 self.stats.save_high_score()
             self.play_button.draw_button()
@@ -89,6 +95,8 @@ class AlienInvasion:
         button_clicked = self.play_button.rect.collidepoint(mouse_pos)
 
         if button_clicked and not self.game_active:
+            pygame.mixer.music.play(-1)
+
             self.stats.reset_stats()
             self.sb.prep_score()
 
@@ -230,6 +238,7 @@ class AlienInvasion:
             sleep(0.5)
 
         else:
+            self.ship.make_explosion_sound()
             self.game_active = False
             self.stats.ships_left -= 1
             self.sb.prep_ship_left()
