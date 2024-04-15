@@ -12,7 +12,7 @@ class Live(Sprite):
         self.screen_rect = ai_game.screen.get_rect()
 
         # load ship image
-        self.image = pygame.image.load('../assets/heart.bmp')
+        self.image = pygame.image.load('../assets/imgs/heart.bmp')
         self.rect = self.image.get_rect()
 
         # store position

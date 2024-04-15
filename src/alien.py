@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pygame
 from pygame.sprite import Sprite
 
@@ -12,7 +14,7 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # load alien image and set rect attribute
-        self.image = pygame.image.load('../assets/alien.bmp')
+        self.image = pygame.image.load('../assets/imgs/alien.bmp')
 
         self.rect = self.image.get_rect()
 
@@ -23,6 +25,9 @@ class Alien(Sprite):
         # store alien position
         self.x = float(self.rect.x)
 
+        # load sounds
+        self.crash_sound = pygame.mixer.Sound(Path('../assets/audio/alien_crash.wav'))
+
     def check_edges(self):
         """ Check if alien is on screen edge """
         screen_rect = self.screen.get_rect()
@@ -32,3 +37,6 @@ class Alien(Sprite):
         """ Move the alien forward to the right"""
         self.x += self.settings.alien_speed * self.settings.fleet_direction
         self.rect.x = self.x
+
+    def make_crash_sound(self):
+        pygame.mixer.Sound.play(self.crash_sound).set_volume(50)

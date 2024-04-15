@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pygame
 
 
@@ -11,7 +13,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         # load ship image
-        self.image = pygame.image.load('../assets/ship.bmp')
+        self.image = pygame.image.load('../assets/imgs/ship.bmp')
         self.rect = self.image.get_rect()
 
         # start ship at the bottom
@@ -23,6 +25,10 @@ class Ship:
         # Movement flags - at start ship does not move
         self.moving_right = False
         self.moving_left = False
+
+        # load sound
+        self.fire_sound = pygame.mixer.Sound(Path('../assets/audio/fire.wav'))
+        self.explosion_sound = pygame.mixer.Sound(Path('../assets/audio/explosion.wav'))
 
     def update(self):
         """Update the position of the ship"""
@@ -40,7 +46,12 @@ class Ship:
 
     def center_ship(self):
         """Center the ship at the screen."""
+        self.make_explosion_sound()
         self.rect.midbottom = self.screen_rect.midbottom
         self.x = float(self.rect.x)
 
+    def make_fire_sound(self):
+        pygame.mixer.Sound.play(self.fire_sound)
 
+    def make_explosion_sound(self):
+        pygame.mixer.Sound.play(self.explosion_sound)
