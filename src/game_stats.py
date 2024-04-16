@@ -1,9 +1,13 @@
+import getpass
 import os
 from datetime import datetime
 
 
 def load_high_score():
     """Load high score from file"""
+    if os.stat('../high_score.log').st_size == 0:
+        return 0
+
     try:
         with open('../high_score.log', 'r') as file:
             high_scores = []
@@ -53,6 +57,7 @@ class GameStats:
         """Save high score to file"""
         today = datetime.now()
 
-        high_score_str = f'[HIGH SCORE]::{today.strftime('%Y-%m-%d %H:%M:%S')}::{os.getlogin()}::{self.high_score}'
-        with open('../high_score.log', 'a') as file:
-            file.writelines(high_score_str + '\n')
+        if self.high_score != 0:
+            high_score_str = f'[HIGH SCORE]::{today.strftime('%Y-%m-%d %H:%M:%S')}::{getpass.getuser()}::{self.high_score}'
+            with open('../high_score.log', 'a') as file:
+                file.writelines(high_score_str + '\n')
