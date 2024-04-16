@@ -63,8 +63,8 @@ class Settings:
 
 
 class Mode(Enum):
-    LIGHT = 1
-    DARK = 0
+    LIGHT = 0
+    DARK = 1
 
     def __str__(self):
         return self.name
