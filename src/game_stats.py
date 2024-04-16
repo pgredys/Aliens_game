@@ -5,9 +5,7 @@ from datetime import datetime
 
 def load_high_score():
     """Load high score from file"""
-    if not os.path.exists('../high_score.log'):
-        return 0
-    if os.stat('../high_score.log').st_size == 0:
+    if not is_not_empty('../high_score.log'):
         return 0
 
     try:
@@ -33,6 +31,14 @@ def load_high_score():
 
     except PermissionError:
         return 0
+
+
+def is_not_empty(path: str) -> bool:
+    if not os.path.exists(path):
+        return False
+    if os.stat(path).st_size == 0:
+        return False
+    return True
 
 
 class GameStats:
