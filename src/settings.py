@@ -6,7 +6,7 @@ class Settings:
         # Screen settings
         self.screen_width = 1280
         self.screen_height = 720
-        self.bg_color = (255, 255, 255)
+        self.bg_color = (125, 155, 235)
 
         # Game settings
         self. randomness = True

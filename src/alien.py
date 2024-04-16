@@ -3,6 +3,8 @@ from pathlib import Path
 import pygame
 from pygame.sprite import Sprite
 
+from utilities import image_transparent_bg
+
 
 class Alien(Sprite):
     """ A class to manage the aliens """
@@ -14,7 +16,7 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # load alien image and set rect attribute
-        self.image = pygame.image.load('../assets/imgs/alien.bmp')
+        self.image = pygame.image.load(image_transparent_bg('../assets/imgs/alien.bmp'))
 
         self.rect = self.image.get_rect()
 
