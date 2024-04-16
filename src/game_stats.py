@@ -5,7 +5,7 @@ from datetime import datetime
 
 def load_high_score():
     """Load high score from file"""
-    if os.stat('../high_score.log').st_size == 0:
+    if os.stat('../high_score.log').st_size == 0 or not os.path.isfile('../high_score.log'):
         return 0
 
     try:
