@@ -5,9 +5,13 @@ name: Python game
 
 on:
   push:
-    branches: [ "main", "feature/*" ]
+     branches:
+      - main
+      - release/*
   pull_request:
-    branches: [ "main", "feature/*" ]
+    branches:
+      - main
+      - release/*
 
 permissions:
   contents: read
