@@ -44,7 +44,9 @@ class AlienInvasion:
         # Start Alien Invasion in an active state.
         self.game_active = False
 
-        self.play_button = Button(self, "Play")
+        # create buttons
+        self.play_button = Button(self, "   Play   ", position='center')
+        self.color_mode_button = Button(self, 'Color Mode', position='bottom_left', size=21)
 
     def _create_alien(self, position_x, position_y):
         """Create an alien group and add it to the row"""
@@ -64,7 +66,7 @@ class AlienInvasion:
         while current_y < self.settings.screen_height - 3 * alien_height:
             while current_x < self.settings.screen_width - 2 * alien.rect.width:
                 self._create_alien(current_x, current_y) if randint(0, 10) >= 3 \
-                    and self.settings.randomness else \
+                                                            and self.settings.randomness else \
                     self._create_alien(current_x, current_y) if not self.settings.randomness else None
 
                 current_x += 2 * alien_width
@@ -85,7 +87,10 @@ class AlienInvasion:
             pygame.mixer.music.stop()
             if self.stats.score >= self.stats.high_score:
                 self.stats.save_high_score()
+
             self.play_button.draw_button()
+            self.color_mode_button.draw_button()
+
             pygame.mouse.set_visible(True)
 
         pygame.display.flip()
