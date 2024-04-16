@@ -40,7 +40,8 @@ jobs:
       run: |
         cd src
         python alien_invasion.py
-        - if: always()
+        exit
+        - if: canceled()
                 run: |
                   CD .
                   cat readme.md
