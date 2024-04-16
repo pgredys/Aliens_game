@@ -40,10 +40,11 @@ jobs:
       run: |
         cd src
         python alien_invasion.py
+        sleep 10
         exit
         - if: canceled()
                 run: |
-                  CD .
+                  cd .
                   cat readme.md
 
   #  - name: Lint with flake8
