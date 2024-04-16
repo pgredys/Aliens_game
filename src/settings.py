@@ -1,3 +1,6 @@
+from enum import Enum
+
+
 class Settings:
     """A class to store all settings for the game"""
 
@@ -9,7 +12,7 @@ class Settings:
         self.bg_color = (125, 155, 235)
 
         # Game settings
-        self. randomness = True
+        self.randomness = True
 
         # Alien settings
         self.alien_speed = 1.0
@@ -57,3 +60,14 @@ class Settings:
         self.alien_speed *= self.speedup_scale
 
         self.alien_points = int(self.alien_points * self.score_scale)
+
+
+class Mode(Enum):
+    LIGHT = 1
+    DARK = 0
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
