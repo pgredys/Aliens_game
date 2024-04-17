@@ -11,6 +11,7 @@ class Button:
 
         # button dim and properties
         self.width, self.height = 400, 50
+        self.message = msg
         self.button_color = "#44FF00"
         self.text_color = "#000000"
         self.position = position
@@ -21,16 +22,16 @@ class Button:
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
 
-        self._prep_msg(msg)
+        self.prep_msg()
 
     def draw_button(self):
         """Draw the button on the screen"""
         self.screen.blit(self.msg_image, self.msg_image_rect)
 
-    def _prep_msg(self, msg):
+    def prep_msg(self):
         self.screen.fill(self.button_color, self.rect)
 
-        self.msg_image = self.font.render(msg, True, self.text_color, self.button_color)
+        self.msg_image = self.font.render(self.message, True, self.text_color, self.button_color)
         self.msg_image_rect = self.msg_image.get_rect()
 
         if self.position == 'center':
@@ -47,3 +48,5 @@ class Button:
         if self.position == 'bottom_left':
             self.msg_image_rect.left = self.screen_rect.left + 20
             self.msg_image_rect.bottom = self.screen_rect.bottom - 20
+
+        self.rect.center = self.msg_image_rect.center

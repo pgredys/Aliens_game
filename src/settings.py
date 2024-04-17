@@ -6,10 +6,12 @@ class Settings:
 
     def __init__(self):
         """Initialize the game settings"""
+
         # Screen settings
         self.screen_width = 1280
         self.screen_height = 720
-        self.bg_color = (125, 155, 235)
+        self.MODE = Mode(1)
+        self.bg_color = self.MODE.bg_color()
 
         # Game settings
         self.randomness = True
@@ -29,7 +31,7 @@ class Settings:
         self.bullet_speed = 2.5
         self.bullet_width = 3
         self.bullet_height = 15
-        self.bullet_color = (0, 0, 0)
+        self.bullet_color = self.MODE.bullet_color()
         self.bullets_allowed = 3
 
         # Ships per game
@@ -61,6 +63,11 @@ class Settings:
 
         self.alien_points = int(self.alien_points * self.score_scale)
 
+    def change_mode(self):
+        self.MODE = next(self.MODE)
+        self.bg_color = self.MODE.bg_color()
+        self.bullet_color = self.MODE.bullet_color()
+
 
 class Mode(Enum):
     LIGHT = 0
@@ -71,3 +78,27 @@ class Mode(Enum):
 
     def __repr__(self):
         return self.name
+
+    def __next__(self):
+        if self.value != len(Mode) - 1:
+            return Mode(self.value + 1)
+        else:
+            return Mode(0)
+
+    def bg_color(self):
+        if self == Mode.LIGHT:
+            return '#ffffff'
+        if self == Mode.DARK:
+            return '#2b2b2b'
+
+    def bullet_color(self):
+        if self == Mode.LIGHT:
+            return '#000000'
+        if self == Mode.DARK:
+            return '#505050'
+
+    def button_color(self):
+        if self == Mode.LIGHT:
+            return '#44FF00'
+        if self == Mode.DARK:
+            return '#227900'

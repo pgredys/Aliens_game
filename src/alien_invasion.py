@@ -46,7 +46,7 @@ class AlienInvasion:
 
         # create buttons
         self.play_button = Button(self, "   Play   ", position='center')
-        self.color_mode_button = Button(self, 'Color Mode', position='bottom_left', size=21)
+        self.color_mode_button = Button(self, ' Color Mode ', position='bottom_left', size=21)
 
     def _create_alien(self, position_x, position_y):
         """Create an alien group and add it to the row"""
@@ -117,6 +117,21 @@ class AlienInvasion:
 
             pygame.mouse.set_visible(False)
 
+    def _check_mode_button(self, mouse_pos):
+        """Function to check for mode button actions"""
+        button_clicked = self.color_mode_button.rect.collidepoint(mouse_pos)
+
+        if button_clicked and not self.game_active:
+            self.settings.change_mode()
+            self.settings.bg_color = self.settings.MODE.bg_color()
+            self.settings.bullet_color = self.settings.MODE.bullet_color()
+
+            self.play_button.button_color = self.settings.MODE.button_color()
+            self.play_button.prep_msg()
+
+            self.color_mode_button.button_color = self.settings.MODE.button_color()
+            self.color_mode_button.prep_msg()
+
     def _update_aliens(self):
         """Function to update the aliens in the fleet"""
         self._check_fleet_edges()
@@ -167,6 +182,7 @@ class AlienInvasion:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_mode_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Respond to key presses."""
