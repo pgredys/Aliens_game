@@ -41,4 +41,4 @@ class Alien(Sprite):
         self.rect.x = self.x
 
     def make_crash_sound(self):
-        pygame.mixer.Sound.play(self.crash_sound).set_volume(50)
+        pygame.mixer.Sound.play(self.crash_sound).set_volume(.5)
