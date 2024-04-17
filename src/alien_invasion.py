@@ -243,6 +243,7 @@ class AlienInvasion:
             for aliens in collisions.values():
                 for alien in aliens:
                     alien.make_crash_sound()
+                    break
 
                 self.stats.score += self.settings.alien_points * len(aliens)
 

@@ -29,6 +29,7 @@ class Alien(Sprite):
 
         # load sounds
         self.crash_sound = pygame.mixer.Sound(Path('../assets/audio/alien_crash.wav'))
+        self.crash_sound.set_volume(0.5)
 
     def check_edges(self):
         """ Check if alien is on screen edge """
@@ -41,4 +42,4 @@ class Alien(Sprite):
         self.rect.x = self.x
 
     def make_crash_sound(self):
-        pygame.mixer.Sound.play(self.crash_sound).set_volume(.5)
+        pygame.mixer.Sound.play(self.crash_sound)
