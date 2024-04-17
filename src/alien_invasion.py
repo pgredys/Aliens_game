@@ -1,3 +1,4 @@
+import random
 import sys
 from pathlib import Path
 from random import randint
@@ -9,6 +10,7 @@ from alien import Alien
 from bullet import Bullet
 from button import Button
 from game_stats import GameStats
+from laser import Laser
 from scoreboard import Scoreboard
 from settings import Settings
 from ship import Ship
@@ -38,6 +40,7 @@ class AlienInvasion:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
+        self.lasers = pygame.sprite.Group()
 
         self._create_fleet()
 
@@ -77,8 +80,13 @@ class AlienInvasion:
         self.screen.fill(self.settings.bg_color)
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        for lasers in self.lasers.sprites():
+            lasers.draw_laser()
+
         self.ship.blit()
+
         self.aliens.draw(self.screen)
+        self._fire_aliens_lasers()
 
         self.sb.show_score()
 
@@ -107,6 +115,7 @@ class AlienInvasion:
             self.game_active = True
 
             self.bullets.empty()
+            self.lasers.empty()
             self.aliens.empty()
 
             self.settings.initialize_dynamic_settings()
@@ -162,6 +171,7 @@ class AlienInvasion:
             if self.game_active:
                 self.ship.update()
                 self._update_bullets()
+                self._update_lasers()
                 self._update_aliens()
 
             self._update_screen()
@@ -207,7 +217,7 @@ class AlienInvasion:
         """Update the bullets"""
         self.bullets.update()
         for bullet in self.bullets.copy():
-            if bullet.rect.bottom <= 0:
+            if bullet.rect.bottom <= 0 or bullet.rect.top >= self.settings.screen_height:
                 self.bullets.remove(bullet)
 
         self._check_bullet_alien_collisions()
@@ -218,6 +228,13 @@ class AlienInvasion:
             self.ship.make_fire_sound()
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _fire_aliens_lasers(self):
+        """Function to fire aliens lasers"""
+        if len(self.lasers) < self.settings.lasers_allowed and self.game_active:
+            if randint(0, 100) > 98:
+                new_bullet = Laser(self)
+                self.lasers.add(new_bullet)
 
     def _check_bullet_alien_collisions(self):
         """Function to check if a bullet collides with the alien"""
@@ -269,6 +286,27 @@ class AlienInvasion:
             if alien.rect.bottom >= self.settings.screen_height:
                 self._ship_hit()
                 break
+
+    def _update_lasers(self):
+        self.lasers.update()
+        for laser in self.lasers.copy():
+            if laser.rect.bottom <= 0 or laser.rect.top >= self.settings.screen_height:
+                self.lasers.remove(laser)
+
+        self._check_laser_ship_collisions()
+
+    def _check_laser_ship_collisions(self):
+        """Function to check if lasers have reached the ship"""
+        collisions = pygame.sprite.spritecollideany(self.ship, self.lasers)
+
+        if collisions:
+            self.ship.make_explosion_sound()
+            self.bullets.empty()
+            self.sb.lives.empty()
+            self.lasers.empty()
+            self.stats.reset_stats()
+            self.game_active = False
+
 
 
 if __name__ == '__main__':
