@@ -22,7 +22,8 @@ class Laser(Sprite):
         self.direction = 1
 
         self.fire_sound = pygame.mixer.Sound(Path('../assets/audio/laser.wav'))
-        pygame.mixer.Sound.play(self.fire_sound).set_volume(.3)
+        self.fire_sound.set_volume(.3)
+        pygame.mixer.Sound.play(self.fire_sound)
 
     def update(self):
         """Move the bullet forward"""
