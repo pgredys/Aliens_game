@@ -1,4 +1,3 @@
-import random
 import sys
 from pathlib import Path
 from random import randint
@@ -92,7 +91,7 @@ class AlienInvasion:
 
         if not self.game_active:
             pygame.mixer.music.stop()
-            if self.stats.score >= self.stats.high_score:
+            if self.stats.score > self.stats.high_score:
                 self.stats.save_high_score()
 
             self.play_button.draw_button()
@@ -304,7 +303,6 @@ class AlienInvasion:
             self.bullets.empty()
             self.sb.lives.empty()
             self.lasers.empty()
-            self.stats.reset_stats()
             self.game_active = False
 
 

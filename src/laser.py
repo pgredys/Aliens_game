@@ -16,7 +16,7 @@ class Laser(Sprite):
 
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width, 2 * self.settings.bullet_height)
         alien = random.choice(list(ai_game.aliens))
-        self.rect.midtop = alien.rect.midtop
+        self.rect.midbottom = alien.rect.midbottom
 
         self.y = float(self.rect.y)
         self.direction = 1
@@ -26,7 +26,7 @@ class Laser(Sprite):
 
     def update(self):
         """Move the bullet forward"""
-        self.y += self.direction * self.settings.bullet_speed
+        self.y += self.direction * .5 * self.settings.bullet_speed
         self.rect.y = self.y
 
     def draw_laser(self):
