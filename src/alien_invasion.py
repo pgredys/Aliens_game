@@ -44,7 +44,9 @@ class AlienInvasion:
         # Start Alien Invasion in an active state.
         self.game_active = False
 
-        self.play_button = Button(self, "Play")
+        # create buttons
+        self.play_button = Button(self, "   Play   ", position='center')
+        self.color_mode_button = Button(self, ' Color Mode ', position='bottom_left', size=21)
 
     def _create_alien(self, position_x, position_y):
         """Create an alien group and add it to the row"""
@@ -63,8 +65,7 @@ class AlienInvasion:
         current_x, current_y = alien_width, alien_height
         while current_y < self.settings.screen_height - 3 * alien_height:
             while current_x < self.settings.screen_width - 2 * alien.rect.width:
-                self._create_alien(current_x, current_y) if randint(0, 10) >= 3 \
-                    and self.settings.randomness else \
+                self._create_alien(current_x, current_y) if randint(0, 10) >= 3 and self.settings.randomness else \
                     self._create_alien(current_x, current_y) if not self.settings.randomness else None
 
                 current_x += 2 * alien_width
@@ -85,7 +86,10 @@ class AlienInvasion:
             pygame.mixer.music.stop()
             if self.stats.score >= self.stats.high_score:
                 self.stats.save_high_score()
+
             self.play_button.draw_button()
+            self.color_mode_button.draw_button()
+
             pygame.mouse.set_visible(True)
 
         pygame.display.flip()
@@ -111,6 +115,21 @@ class AlienInvasion:
             self.sb.prep_ship_left()
 
             pygame.mouse.set_visible(False)
+
+    def _check_mode_button(self, mouse_pos):
+        """Function to check for mode button actions"""
+        button_clicked = self.color_mode_button.rect.collidepoint(mouse_pos)
+
+        if button_clicked and not self.game_active:
+            self.settings.change_mode()
+            self.settings.bg_color = self.settings.MODE.bg_color()
+            self.settings.bullet_color = self.settings.MODE.bullet_color()
+
+            self.play_button.button_color = self.settings.MODE.button_color()
+            self.play_button.prep_msg()
+
+            self.color_mode_button.button_color = self.settings.MODE.button_color()
+            self.color_mode_button.prep_msg()
 
     def _update_aliens(self):
         """Function to update the aliens in the fleet"""
@@ -162,6 +181,7 @@ class AlienInvasion:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_mode_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Respond to key presses."""

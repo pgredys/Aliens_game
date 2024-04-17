@@ -2,6 +2,8 @@ from pathlib import Path
 
 import pygame
 
+from utilities import image_transparent_bg
+
 
 class Ship:
     """A class to represent a ship"""
@@ -13,7 +15,7 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         # load ship image
-        self.image = pygame.image.load('../assets/imgs/ship.bmp')
+        self.image = pygame.image.load(image_transparent_bg('../assets/imgs/ship.bmp'))
         self.rect = self.image.get_rect()
 
         # start ship at the bottom
@@ -32,7 +34,7 @@ class Ship:
 
     def update(self):
         """Update the position of the ship"""
-        if self.moving_right and self.rect.right  < self.screen_rect.right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
