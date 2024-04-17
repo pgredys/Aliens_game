@@ -12,7 +12,7 @@ class Button:
         # button dim and properties
         self.width, self.height = 400, 50
         self.message = msg
-        self.button_color = "#44FF00"
+        self.button_color = ai_game.settings.MODE.button_color()
         self.text_color = "#000000"
         self.position = position
         self.font = pygame.font.Font(Path('../assets/fonts/CascadiaCode.ttf'), size)

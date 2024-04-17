@@ -20,6 +20,8 @@ class Settings:
         self.alien_speed = 1.0
         self.fleet_drop_speed = 10
         self.alien_points = 50
+        self.lasers_allowed = 3
+        self.laser_color = (255, 0, 0)
 
         # fleet_direction: 1 -> right, -1 -> left
         self.fleet_direction = 1

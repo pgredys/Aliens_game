@@ -15,10 +15,11 @@ class Bullet(Sprite):
         self.rect.midtop = ai_game.ship.rect.midtop
 
         self.y = float(self.rect.y)
+        self.direction = -1
 
     def update(self):
         """Move the bullet forward"""
-        self.y -= self.settings.bullet_speed
+        self.y += self.direction * self.settings.bullet_speed
         self.rect.y = self.y
 
     def draw_bullet(self):
