@@ -109,7 +109,6 @@ class AlienInvasion:
             pygame.mixer.music.play(-1)
 
             self.stats.reset_stats()
-            self.sb.prep_score()
 
             self.game_active = True
 
@@ -120,7 +119,8 @@ class AlienInvasion:
             self.settings.initialize_dynamic_settings()
 
             self.stats.level = 0
-            self.sb.prep_ship_left()
+
+            self.sb.prep_images()
 
             pygame.mouse.set_visible(False)
 
@@ -153,6 +153,7 @@ class AlienInvasion:
         """Function to change the fleet direction"""
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
+
         self.settings.fleet_direction *= -1
 
     def _check_fleet_edges(self):
@@ -250,6 +251,9 @@ class AlienInvasion:
             self.sb.prep_score()
             self.sb.check_high_score()
 
+        self._new_level()
+
+    def _new_level(self):
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
