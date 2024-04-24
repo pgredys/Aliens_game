@@ -1,6 +1,9 @@
 # Aliens_game
 Quick project based on popular game concept created for fun and education purpose 
 
+## Game
+![dark_mode.png](/imgs/dark_mode.png)
+![light_mode.png](/imgs/light_mode.png)
 ## Installation 
 ```git
 git clone https://github.com/pgredys/Aliens_game.git
