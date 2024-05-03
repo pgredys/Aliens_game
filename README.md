@@ -4,7 +4,17 @@ Quick project based on popular game concept created for fun and education purpos
 ## Game
 ![dark_mode.png](/imgs/dark_mode.png)
 ![light_mode.png](/imgs/light_mode.png)
-## Installation 
+## Play Game
+
+Only `Windows` distribution available for now.
+
+Steps:
+- download the latest release from a release panel 
+- unzip file in desired directory
+- run `dist/alien_invasion.exe`
+
+## Build Game
+### Coppy repository
 ```git
 git clone https://github.com/pgredys/Aliens_game.git
 cd Aliens_game
